@@ -1,0 +1,18 @@
+
+
+
+.todo-list {
+    list-style: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-item-number {
+    width: 20%;
+}
+
+.todo-item-label {
+    width: 80%;
+}
