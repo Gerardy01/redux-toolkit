@@ -1,5 +1,5 @@
 // React
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useRef } from 'react'
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -11,33 +11,31 @@ import { TodoItems } from '../../models/todoInterface';
 
 export default function TodoListForms() {
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const dispatch = useDispatch();
 
-    const [todoInputValue, setTodoInputValue] = useState<string>("");
 
     function handleClick(e : ChangeEvent<EventTarget>) : void {
         e.preventDefault()
-
-        if (todoInputValue === "") {
-            return
+        
+        const todoItem = {
+            id : Math.floor(10*1000*Math.random()),
+            label : inputRef !== null ? inputRef.current!.value : ""
+            
         }
 
-        const todoItems : TodoItems = {
-            id: 5,
-            label: todoInputValue
-        }
-
-        dispatch(addTodoItems(todoItems));
-        setTodoInputValue("");
+        dispatch(addTodoItems(todoItem));
+        inputRef.current!.value = "";
     }
 
     return (
         <div>
             <form onSubmit={e => handleClick(e)}>
                 <input
-                    placeholder="todo..."
-                    value={todoInputValue}
-                    onChange={e => setTodoInputValue(e.target.value)}
+ 
+                placeholder="todo..."
+                ref={inputRef}
                 />
                 <button>submit</button>
             </form>
