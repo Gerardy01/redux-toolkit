@@ -24,36 +24,35 @@ import TodoListForms from '../../components/todoListForm/TodoListForm';
 
 export default function App() {
 
-    const [todoListData, setTodoListData] = useState<TodoItemsType[]>([]);
-
-    const dispatch = useDispatch();
 
     const { todoList } = useSelector((state : RootState)=> state.todoList)
 
+    // const [todoListData, setTodoListData] = useState<TodoItemsType[]>([]);
+    // const dispatch = useDispatch();
     // set todoListSlice from api
-    useEffect(() => {
-        const items : DataResultType = todoListItem()
-        dispatch(setTodoList(items.data));
-    }, []);
+    // useEffect(() => {
+    //     const items : DataResultType = todoListItem()
+    //     dispatch(setTodoList(items.data));
+    // }, []);
 
-    // set todoListData state from redux slice
-    useEffect(() => {
-        if (todoList.length > 0) {
-            setTodoListData(todoList);
-        }
-    }, [todoList]);
+    // // set todoListData state from redux slice
+    // useEffect(() => {
+    //     if (todoList.length > 0) {
+    //         setTodoListData(todoList);
+    //     }
+    // }, [todoList]);
 
     return (
         <div className="container">
             <h1 className='todo-title'>Todo App</h1>
             <ul className='todo-items-holder'>
-                {todoListData.length > 0 ?
+                {todoList.length > 0 ?
                     <>
-                        {todoListData.map((e : TodoItemsType, i : number) => {
+                        {todoList.map((e : TodoItemsType, i : number) => {
                             return <TodoListItems key={i} data={e} />
                         })}
                     </> : <>
-                        loading...
+                        Empty List
                     </>
                 }
             </ul>
